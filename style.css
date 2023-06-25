@@ -163,28 +163,20 @@ footer p{
 }
 #h2-2 {
     position: relative;
-    top: 50rem;
+    top: 49rem;
 }
 .rel {
     position: relative;
     top: 49rem;
 }
-.marketing2 {
+#marketing2 {
     height: auto;
     position: relative;
-    top: 51rem;
+    top: 47rem;
 }
 
 /*makeup page*/
 
-#h2-2 {
-    position: relative;
-    top: 55rem;
-}
-
-#makeup-tips {
-    
-}
 .link-makeup {
     text-decoration: none;
 }
