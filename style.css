@@ -163,27 +163,32 @@ footer p{
 }
 .skincare-marketing {
     position: relative;
-    top: 44rem;
+    top: 50rem;
 }
 #h2-2 {
     position: relative;
-    top: 49rem;
+    top: 50rem;
 }
 .rel {
     position: relative;
     top: 49rem;
 }
+.marketing2 {
+    height: auto;
+    position: relative;
+    padding-bottom: 100px;
+}
 
 /*makeup page*/
 
 #h2-2 {
-    padding-top: 70px !important;
+    padding-top: 150px !important;
 }
 
 #makeup-tips {
     position: relative;
     top: 48rem;
-    padding-top: 70px;
+    padding-top: 130px;
 }
 .link-makeup {
     text-decoration: none;
@@ -204,13 +209,13 @@ footer p{
 }
 .makeup-looks {
     position: relative;
-    top: 48rem;
+    top: 49rem;
 }
 .makeup-look {
     padding-top: 50px;
 }
 #makeup-looks {
-    padding-top: 70px;
+    padding-top: 90px;
 }
 .image6 {
     border-radius: 10px;
