@@ -66,7 +66,9 @@
     .removee {
         display: flex;
     }
-    
+    .heading2 h2{
+        margin-top: 60px;
+    }
 }
 
 @media (min-width: 921px) {
@@ -147,10 +149,14 @@
     .padd {
         padding-top: 100px;
     }
+    .form-skincare {
+        margin-left: 25px;
+    }
 }
   
 
 @media (max-width: 576px) {
+
     .btn-resize {
       font-size: 0rem;
       padding: 3px 8px;

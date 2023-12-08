@@ -1,3 +1,7 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
 
 .logo a{
     color: #e0dede;
@@ -32,7 +36,7 @@
 .marketing.container {
     padding-top: 35px; 
     padding-bottom: 50px;
-  }
+}
 .image1 {
     width: 140px;
     height: 140px;
@@ -108,11 +112,6 @@ footer p{
 /*skincare page*/
 
 .overlay-image2 {
-    position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
     background-position: center;
     background-size: cover;
     opacity: 0.8;
@@ -161,21 +160,112 @@ footer p{
     opacity: 0.8;
     scroll-snap-align: start;
 }
-#h2-2 {
-    position: relative;
-    top: 49rem;
-}
-.rel {
-    position: relative;
-    top: 49rem;
-}
+
 #marketing2 {
     height: auto;
-    position: relative;
-    top: 47rem;
 }
 
+.form {
+    width: 100%;
+
+}
+.az-mb-5{
+    margin-bottom: 5rem!important;
+}
+.az-invisible{
+    display: none;
+}
+.az-visible{
+    display: block!important;
+}
+.error{
+    display: block;
+    
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+     
+}
+.az-width{
+    width: 100%!important;
+}
+.az-bg-red:hover,.az-bg-red:active,.az-bg-red:focus{
+    background-color: var(--darkRed);
+    color: var(--white);
+    border-color: var(--darkRed);
+}
+.az-bg-red:focus,.az-bg-red-2:focus{
+    box-shadow: 0 0 0 0.25rem rgb(234, 235, 236) !important;
+}
+.az-bg-red{
+    border:1px solid var(--darkRed);
+    background-color: var(--white);
+    color: var(--darkRed);
+    transition:0.2s;
+}
+.az-bg-red-2{
+    background-color: rgba(181, 33, 37,0.92);
+    color: var(--white);
+    border-color: var(--darkRed);
+}
+.az-bg-red-2:hover,.az-bg-red-2:active,.az-bg-red-2:focus{
+    background-color: var(--darkRed);
+    border-color: var(--darkRed);
+}
+        
+.az-red {
+    border:1px solid var(--darkRed);
+    color: red; 
+    font-weight: bold;
+}
+
+          
+.az-invisible {
+    display: none; 
+}
+          
+.success-message {
+    color: green; 
+}
+          
+
+#errorDiv {
+    color: red;
+    font-weight: bold;
+}
+          
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+          
+#errorDiv {
+    color: red;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+.error-message {
+    color: rgba(194, 21, 21, 0.731);
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+
+.az-invisible {
+    display: none;
+}
+
+
 /*makeup page*/
+
+.overlay-image2 {
+    height: 60rem;
+}
 
 .link-makeup {
     text-decoration: none;
@@ -194,16 +284,11 @@ footer p{
 #block {
     opacity: 0.7;
 }
+
 .makeup-looks {
-    position: relative;
-    top: 49rem;
+    padding-top: 100px;
 }
-.makeup-look {
-    padding-top: 50px;
-}
-#makeup-looks {
-    padding-top: 90px;
-}
+
 .image6 {
     border-radius: 10px;
     filter: grayscale(100%);
@@ -237,13 +322,45 @@ footer p{
 .overlay-text {
     font-weight: 800;
 }
-#footer-m {
-    margin-top: 50px;
+
+#makeup-tips {
+    padding-top: 50px;
 }
-.makeup-tips {
+
+
+
+.link-makeup {
     position: relative;
-    top: 48rem;
+    display: inline-block;
+    margin: 20px;
+    text-decoration: none;
+    color: #333;
 }
+.link-preview p{
+    font-size: 17px;
+    font-weight: 480;
+}
+
+.link-preview {
+    display: none;
+    position: absolute;
+    top: 49%;
+    left: 230px;
+    width: 200px;
+    padding: 12px 4px 0 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+    z-index: 1;
+}
+
+.link-makeup:hover .link-preview {
+    display: block;
+}
+
+
+
 
 /*Contact page*/
 
@@ -265,6 +382,25 @@ pre {
     background-color: #7d858c;
     color: #e0dede;
 }
+#successMessage {
+    width: 40%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6dc481; /* Green color */
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: #556f5a;
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 /*author page*/
 
