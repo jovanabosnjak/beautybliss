@@ -32,12 +32,11 @@ const makeupHacks = [
         </div>
       `;
 
-      // Append each makeup look to the row
+      
       makeupRow.insertAdjacentHTML('beforeend', makeupLookHTML);
     });
   }
 
-  // Call the function to generate makeup looks when the document is ready
   document.addEventListener('DOMContentLoaded', generateMakeupLooks);
 //end of makeup.html
 

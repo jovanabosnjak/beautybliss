@@ -1,10 +1,10 @@
 
-
+// start of index.html
 document.addEventListener("DOMContentLoaded", function() {
     const carouselContainer = document.getElementById("carouselHTML");
     
     if (carouselContainer) {
-    // Definisem podatke za svaki slajd
+    // definisem podatke za svaki slajd
     const slidesData = [
       {
         image: './images/carousel-img1-min.jpg',
@@ -80,4 +80,4 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
 }
 
- //end of index.html
+ // end of index.html

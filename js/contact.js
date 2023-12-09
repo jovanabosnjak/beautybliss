@@ -77,9 +77,9 @@
   //       message: "Please enter your message"
   //     },
   //     submitHandler: function (form) {
-  //       // Ovde dodajte kod za slanje forme ako je validna
+        
   //       $("#successMessage").html("Form submitted successfully!");
-  //       // Dodajte ovde ajax poziv, redirekciju ili druge radnje nakon uspešnog slanja forme
+        
   //     }
   //   });
   // });
