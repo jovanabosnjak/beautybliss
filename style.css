@@ -44,9 +44,18 @@
     background-size: cover;
     border-radius: 100px;
     opacity: 0.8;
+    transition: border-radius 0.5s ease-in-out;
+    cursor: pointer;
+}
+.image1.rounded {
+    border-radius: 40%; 
 }
 .heading1 {
     color: #6c757d;
+}
+
+.color-change {
+    color: blue;
 }
 
 .image2 {
@@ -90,6 +99,8 @@
 .heading2 h2{
     font-weight: 700;
     color: #5a6168;
+    cursor: pointer;
+    transition: color 0.5s ease-in-out;
 }
 .important{
     font-style: italic;
@@ -101,6 +112,15 @@
     font-style: italic;
     color: #6c757d;
 }
+
+.image-box img {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .image-box:hover img {
+    transform: scale(1.1);
+  }
+
 footer {
     height: 56px;
 }

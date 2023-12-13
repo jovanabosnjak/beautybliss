@@ -1,10 +1,10 @@
 
-
+// start of index.html
 document.addEventListener("DOMContentLoaded", function() {
     const carouselContainer = document.getElementById("carouselHTML");
     
     if (carouselContainer) {
-    // Definisem podatke za svaki slajd
+    // definisem podatke za svaki slajd
     const slidesData = [
       {
         image: './images/carousel-img1-min.jpg',
@@ -80,4 +80,37 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
 }
 
- //end of index.html
+
+
+// za naslov tips to get started
+$(document).ready(function(){
+  $("#tips-container").click(function() {
+    // promena boje i teksta na klik
+    $(this).toggleClass('color-change');
+    if ($(this).hasClass('color-change')) {
+      $(this).find('h2').text("Go girl!");
+    } else {
+      $(this).find('h2').text("Tips to get started");
+    }
+  });
+});
+
+
+
+$(document).ready(function(){
+  $(".image-box").hover(
+    function() {
+      
+      $(this).find('img').fadeOut(200, function() {
+        $(this).fadeIn(200);
+      });
+    },
+    function() {
+      
+      $(this).find('img').fadeOut(200, function() {
+        $(this).fadeIn(200);
+      });
+    }
+  );
+});
+ // end of index.html
