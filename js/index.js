@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const carouselContainer = document.getElementById("carouselHTML");
     
     if (carouselContainer) {
-    // definisem podatke za svaki slajd
     const slidesData = [
       {
         image: './images/carousel-img1-min.jpg',
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
         interval: 500
       }
     ];
-    // dinamicki generisem carousel HTML
     
     var carouselHTML = generateCarouselHTML(slidesData);
         carouselContainer.innerHTML = carouselHTML;
@@ -82,10 +80,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-// za naslov tips to get started
+// for heading
 $(document).ready(function(){
   $("#tips-container").click(function() {
-    // promena boje i teksta na klik
+  // change color on click
     $(this).toggleClass('color-change');
     if ($(this).hasClass('color-change')) {
       $(this).find('h2').text("Go girl!");
@@ -94,7 +92,6 @@ $(document).ready(function(){
     }
   });
 });
-
 
 
 $(document).ready(function(){
