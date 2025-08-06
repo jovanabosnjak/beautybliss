@@ -1,0 +1,60 @@
+// zajednicki js za stranice
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Provera jQuery i js
+  if (typeof jQuery == 'undefined') {
+      console.error("jQuery is not loaded!");
+  } else {
+      console.log("jQuery is loaded!");
+  }
+
+  console.log("main.js is loaded!");
+
+  
+});
+
+
+$(document).ready(function(){
+  $(".image1").hover(
+    function() {
+      $(this).addClass('rounded');
+    },
+    function() {
+      $(this).removeClass('rounded');
+    }
+  );
+});
+
+
+// navigacija
+function createNavigation() {
+    const navItems = [
+      { text: "Home", link: "index.html" },
+      { text: "Skincare", link: "skincare.html" },
+      { text: "Makeup", link: "makeup.html" },
+      { text: "Contact", link: "contact.html" },
+      { text: "Author", link: "author.html" }
+    ];
+  
+    const navList = document.getElementById("navList");
+  
+    if (navList) {
+      navItems.forEach(item => {
+        const li = document.createElement("li");
+        li.classList.add("nav-item");
+  
+        const a = document.createElement("a");
+        a.classList.add("nav-link");
+        a.href = item.link;
+        a.textContent = item.text;
+  
+        li.appendChild(a);
+        navList.appendChild(li);
+      });
+    } else {
+      console.error("Element with ID 'navList' not found.");
+    }
+}
+  
+  document.addEventListener("DOMContentLoaded", createNavigation);
+//kraj navigacije
