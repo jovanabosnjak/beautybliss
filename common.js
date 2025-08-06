@@ -28,7 +28,6 @@ $(document).ready(function(){
 
 // navigacija
 function createNavigation() {
-    // definisem elemente
     const navItems = [
       { text: "Home", link: "index.html" },
       { text: "Skincare", link: "skincare.html" },
@@ -37,10 +36,8 @@ function createNavigation() {
       { text: "Author", link: "author.html" }
     ];
   
-    // ubacujem u navList
     const navList = document.getElementById("navList");
   
-    // prolazim  kroz stavke i stvaram HTML za svaku od njih
     if (navList) {
       navItems.forEach(item => {
         const li = document.createElement("li");

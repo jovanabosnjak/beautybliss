@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//---------------------------------slike makeup looks
+//---------------------------------images makeup looks
 function showPreview() {
     document.getElementById("previewContent").style.display = "block";
 }

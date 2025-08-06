@@ -8,7 +8,6 @@
     document.getElementById("messageError").innerHTML = "";
     document.getElementById("ratingError").innerHTML = "";
 
-    // Get form values
     var name = document.getElementById("name").value.trim();
     var email = document.getElementById("email").value.trim();
     var message = document.getElementById("message").value.trim();
