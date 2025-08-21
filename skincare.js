@@ -1,18 +1,24 @@
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("dugmeProvera").addEventListener("click", proveriFormu);
-    document.getElementById("inputIme").addEventListener("input", proveriImePrezime);
-    document.getElementById("inputPrezime").addEventListener("input", proveriImePrezime);
-    document.getElementById("inputEmail").addEventListener("input", proveriEmail);
-    document.getElementById("inputTelefon").addEventListener("input", proveriTelefon);
+    const dugme = document.getElementById("dugmeProvera");
+    if (dugme) dugme.addEventListener("click", proveriFormu);
+
+    const inputIme = document.getElementById("inputIme");
+    const inputPrezime = document.getElementById("inputPrezime");
+    const inputEmail = document.getElementById("inputEmail");
+    const inputTelefon = document.getElementById("inputTelefon");
+
+    if (inputIme) inputIme.addEventListener("input", proveriImePrezime);
+    if (inputPrezime) inputPrezime.addEventListener("input", proveriImePrezime);
+    if (inputEmail) inputEmail.addEventListener("input", proveriEmail);
+    if (inputTelefon) inputTelefon.addEventListener("input", proveriTelefon);
 });
 
 function proveriFormu() {
     let isValid = true;
-    isValid = isValid && proveriImePrezime();
-    isValid = isValid && proveriEmail();
-    isValid = isValid && proveriTelefon();
+    if (!proveriImePrezime()) isValid = false;
+    if (!proveriEmail()) isValid = false;
+    if (!proveriTelefon()) isValid = false;
 
     let ddlUsluga = document.getElementById("ddlUsluga");
     let ddlUslugaError = document.getElementById("ddlUslugaError");
@@ -30,8 +36,8 @@ function proveriFormu() {
         }
     }
 
-    let tipKontaktaSMS = document.getElementById("kontaktSMS").checked;
-    let tipKontaktaEmail = document.getElementById("kontaktMail").checked;
+    let tipKontaktaSMS = document.getElementById("kontaktSMS")?.checked;
+    let tipKontaktaEmail = document.getElementById("kontaktMail")?.checked;
 
     if (!tipKontaktaSMS && !tipKontaktaEmail) {
         prikaziGlobalnuPoruku(false, "Choose one contact method");
@@ -40,19 +46,22 @@ function proveriFormu() {
 
     if (isValid) {
         prikaziGlobalnuPoruku(true, "Form submitted successfully!");
-        document.getElementById("kontaktForm").reset();
+        const forma = document.getElementById("kontaktForm");
+        if (forma) forma.reset();
     } else {
         prikaziGlobalnuPoruku(false, "Form has errors, please check fields.");
     }
 }
 
 function proveriImePrezime() {
-    let inputIme = document.getElementById("inputIme");
-    let inputPrezime = document.getElementById("inputPrezime");
-    let regexImePrezime = /^[A-ZŠĐČĆŽ][a-zšđčćž]*(\s[A-ZŠĐČĆŽ][a-zšđčćž]*)*$/;
+    const inputIme = document.getElementById("inputIme");
+    const inputPrezime = document.getElementById("inputPrezime");
+    if (!inputIme || !inputPrezime) return false;
 
-    let isValidIme = regexImePrezime.test(inputIme.value);
-    let isValidPrezime = regexImePrezime.test(inputPrezime.value);
+    const regexImePrezime = /^[A-ZŠĐČĆŽ][a-zšđčćž]*(\s[A-ZŠĐČĆŽ][a-zšđčćž]*)*$/;
+
+    const isValidIme = regexImePrezime.test(inputIme.value);
+    const isValidPrezime = regexImePrezime.test(inputPrezime.value);
 
     prikaziPoruku(isValidIme, inputIme, "Invalid name format");
     prikaziPoruku(isValidPrezime, inputPrezime, "Invalid last name format");
@@ -61,10 +70,11 @@ function proveriImePrezime() {
 }
 
 function proveriEmail() {
-    let inputEmail = document.getElementById("inputEmail");
-    let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const inputEmail = document.getElementById("inputEmail");
+    if (!inputEmail) return false;
 
-    let isValidEmail = regexEmail.test(inputEmail.value);
+    const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValidEmail = regexEmail.test(inputEmail.value);
 
     prikaziPoruku(isValidEmail, inputEmail, "Invalid email format");
 
@@ -72,10 +82,11 @@ function proveriEmail() {
 }
 
 function proveriTelefon() {
-    let inputTelefon = document.getElementById("inputTelefon");
-    let regexTelefon = /^06[0-9]\/?[0-9]{5,7}$/;
+    const inputTelefon = document.getElementById("inputTelefon");
+    if (!inputTelefon) return false;
 
-    let isValidTelefon = regexTelefon.test(inputTelefon.value);
+    const regexTelefon = /^06[0-9]\/?[0-9]{5,7}$/;
+    const isValidTelefon = regexTelefon.test(inputTelefon.value);
 
     prikaziPoruku(isValidTelefon, inputTelefon, "Invalid phone format");
 
@@ -83,19 +94,13 @@ function proveriTelefon() {
 }
 
 function prikaziPoruku(isValid, inputElement, errorMessage) {
-    if (!inputElement) {
-        console.warn("prikaziPoruku pozvan bez inputElement-a");
-        return;
-    }
+    if (!inputElement) return;
 
-    let porukaElement = inputElement.parentElement 
-        ? inputElement.parentElement.querySelector(".az-red") 
+    const porukaElement = inputElement.parentElement
+        ? inputElement.parentElement.querySelector(".az-red")
         : null;
 
-    if (!porukaElement) {
-        console.warn("Nema .az-red elementa za", inputElement.id);
-        return;
-    }
+    if (!porukaElement) return;
 
     if (isValid) {
         porukaElement.classList.add("az-invisible");
@@ -107,9 +112,10 @@ function prikaziPoruku(isValid, inputElement, errorMessage) {
     }
 }
 
-
 function prikaziGlobalnuPoruku(isValid, message) {
-    let porukaForme = document.getElementById("porukaForme");
+    const porukaForme = document.getElementById("porukaForme");
+    if (!porukaForme) return;
+
     porukaForme.innerText = message;
 
     if (isValid) {
@@ -124,6 +130,7 @@ function prikaziGlobalnuPoruku(isValid, message) {
 function autoScroll() {
     const container = document.querySelector('.skincare-tips');
     const sections = document.querySelectorAll('.section');
+    if (!container || sections.length === 0) return;
 
     let index = 0;
     const interval = setInterval(() => {
@@ -141,7 +148,9 @@ function autoScroll() {
         }
     }, 5000);
 }
+
 window.onload = autoScroll;
+
 
 
 
