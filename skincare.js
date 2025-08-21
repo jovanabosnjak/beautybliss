@@ -1,37 +1,18 @@
 
 
-//start of skincare.html
-
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("dugmeProvera").addEventListener("click", proveriFormu);
     document.getElementById("inputIme").addEventListener("input", proveriImePrezime);
     document.getElementById("inputPrezime").addEventListener("input", proveriImePrezime);
     document.getElementById("inputEmail").addEventListener("input", proveriEmail);
     document.getElementById("inputTelefon").addEventListener("input", proveriTelefon);
-    
 });
 
-// provere forme
 function proveriFormu() {
     let isValid = true;
     isValid = isValid && proveriImePrezime();
     isValid = isValid && proveriEmail();
     isValid = isValid && proveriTelefon();
-
-    function prikaziPoruku(imePolja, isValid, inputElement, errorMessage) {
-        let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
-        let porukaDiv = document.getElementById("porukaDiv");
-
-        if (isValid) {
-            porukaElement.classList.add("az-invisible", "success-message");
-        } else {
-            porukaElement.classList.remove("az-invisible", "success-message");
-            porukaElement.classList.add("error-message");
-            porukaElement.innerText = errorMessage;
-            porukaDiv.innerText = "Please fill out.";
-            porukaDiv.classList.add("error-message");
-        }
-    }
 
     let ddlUsluga = document.getElementById("ddlUsluga");
     let ddlUslugaError = document.getElementById("ddlUslugaError");
@@ -42,9 +23,12 @@ function proveriFormu() {
         if (ddlUsluga.value === "0") {
             isValid = false;
             ddlUslugaError.innerText = "Choose a product.";
-            ddlUslugaError.classList.remove("az-invisible");
+            ddlUslugaError.classList.remove("az-invisible", "success-message");
+            ddlUslugaError.classList.add("error-message");
         } else {
-            ddlUslugaError.classList.add("az-invisible");
+            ddlUslugaError.classList.remove("error-message");
+            ddlUslugaError.classList.add("az-invisible", "success-message");
+            ddlUslugaError.innerText = "Product chosen successfully.";
         }
     }
 
@@ -67,20 +51,15 @@ function proveriFormu() {
     let tipKontaktaEmail = document.getElementById("kontaktMail").checked;
 
     if (!tipKontaktaSMS && !tipKontaktaEmail) {
-        prikaziPoruku("Choose one", false, null, "Choose one contact method");
+        prikaziGlobalnuPoruku(false, "Choose one contact method");
         isValid = false;
-    } else {
-        prikaziPoruku("Choose one", true, null, "");
     }
 
-
-    console.log("isValid nakon provere forme:", isValid);
-
     if (isValid) {
+        prikaziGlobalnuPoruku(true, "Form submitted successfully!");
         document.getElementById("kontaktForm").reset();
-        prikaziPoruku("Form is valid!", true, null, "");
     } else {
-        prikaziPoruku("Form is invalid!", false, null, "");
+        prikaziGlobalnuPoruku(false, "Form has errors, please check fields.");
     }
 }
 
@@ -121,56 +100,56 @@ function proveriTelefon() {
 }
 
 function prikaziPoruku(imePolja, isValid, inputElement, errorMessage) {
-    if (!inputElement) {
-        console.log("inputElement nije definisan.");
-        return;
-    }
+    if (!inputElement) return;
     let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
 
-    if (!porukaElement) {
-        console.log("porukaElement nije definisan.");
-        return;
-    }
+    if (!porukaElement) return;
 
     if (isValid) {
         porukaElement.classList.add("az-invisible");
+        porukaElement.classList.remove("error-message");
     } else {
         porukaElement.classList.remove("az-invisible");
+        porukaElement.classList.add("error-message");
         porukaElement.innerText = errorMessage;
     }
-
-    let porukaDiv = document.getElementById("porukaDiv");
-
-    if (!inputElement) {
-        porukaDiv.innerText = isValid ? "" : "Choose one";
-        porukaDiv.style.color = isValid ? "" : "red";
-        porukaDiv.classList.toggle("error-message", !isValid);
-    }
-    
 }
 
+function prikaziGlobalnuPoruku(isValid, message) {
+    let porukaForme = document.getElementById("porukaForme");
+    porukaForme.innerText = message;
 
-// skincare tips autoscroll
+    if (isValid) {
+        porukaForme.classList.remove("az-invisible", "error-message");
+        porukaForme.classList.add("success-message");
+    } else {
+        porukaForme.classList.remove("az-invisible", "success-message");
+        porukaForme.classList.add("error-message");
+    }
+}
+
 function autoScroll() {
     const container = document.querySelector('.skincare-tips');
     const sections = document.querySelectorAll('.section');
 
     let index = 0;
     const interval = setInterval(() => {
-      const scrollAmount = sections[index].offsetHeight; 
+        const scrollAmount = sections[index].offsetHeight;
 
-      container.scrollBy({
-        top: scrollAmount,
-        behavior: 'smooth',
-      });
+        container.scrollBy({
+            top: scrollAmount,
+            behavior: 'smooth',
+        });
 
-      index++;
+        index++;
 
-      if (index === sections.length) {
-        clearInterval(interval);
-      }
-    }, 5000); 
-  }
-  window.onload = autoScroll;
-  //end of skincare.html
+        if (index === sections.length) {
+            clearInterval(interval);
+        }
+    }, 5000);
+}
+window.onload = autoScroll;
+
+
+
 
