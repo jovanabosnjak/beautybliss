@@ -17,35 +17,18 @@ function proveriFormu() {
     let ddlUsluga = document.getElementById("ddlUsluga");
     let ddlUslugaError = document.getElementById("ddlUslugaError");
 
-    if (!ddlUsluga || !ddlUslugaError) {
-        console.error("Element with id 'ddlUsluga' or 'ddlUslugaError' not found.");
-    } else {
+    if (ddlUsluga && ddlUslugaError) {
         if (ddlUsluga.value === "0") {
             isValid = false;
             ddlUslugaError.innerText = "Choose a product.";
             ddlUslugaError.classList.remove("az-invisible", "success-message");
             ddlUslugaError.classList.add("error-message");
         } else {
-            ddlUslugaError.classList.remove("error-message");
-            ddlUslugaError.classList.add("az-invisible", "success-message");
             ddlUslugaError.innerText = "Product chosen successfully.";
-        }
-    }
-
-    document.getElementById("ddlUsluga").addEventListener("change", function () {
-        let ddlUsluga = document.getElementById("ddlUsluga");
-        let ddlUslugaError = document.getElementById("ddlUslugaError");
-
-        if (ddlUsluga.value === "0") {
-            ddlUslugaError.innerText = "Please choose a product.";
-            ddlUslugaError.classList.remove("az-invisible", "success-message");
-            ddlUslugaError.classList.add("error-message");
-        } else {
-            ddlUslugaError.innerText = "Product chosen successfully.";
-            ddlUslugaError.classList.remove("az-invisible", "error-message");
+            ddlUslugaError.classList.remove("error-message", "az-invisible");
             ddlUslugaError.classList.add("success-message");
         }
-    });
+    }
 
     let tipKontaktaSMS = document.getElementById("kontaktSMS").checked;
     let tipKontaktaEmail = document.getElementById("kontaktMail").checked;
@@ -71,8 +54,8 @@ function proveriImePrezime() {
     let isValidIme = regexImePrezime.test(inputIme.value);
     let isValidPrezime = regexImePrezime.test(inputPrezime.value);
 
-    prikaziPoruku("Name", isValidIme, inputIme, "Invalid name format");
-    prikaziPoruku("Last Name", isValidPrezime, inputPrezime, "Invalid last name format");
+    prikaziPoruku(isValidIme, inputIme, "Invalid name format");
+    prikaziPoruku(isValidPrezime, inputPrezime, "Invalid last name format");
 
     return isValidIme && isValidPrezime;
 }
@@ -83,7 +66,7 @@ function proveriEmail() {
 
     let isValidEmail = regexEmail.test(inputEmail.value);
 
-    prikaziPoruku("Email", isValidEmail, inputEmail, "Invalid email format");
+    prikaziPoruku(isValidEmail, inputEmail, "Invalid email format");
 
     return isValidEmail;
 }
@@ -94,15 +77,14 @@ function proveriTelefon() {
 
     let isValidTelefon = regexTelefon.test(inputTelefon.value);
 
-    prikaziPoruku("Phone", isValidTelefon, inputTelefon, "Invalid phone format");
+    prikaziPoruku(isValidTelefon, inputTelefon, "Invalid phone format");
 
     return isValidTelefon;
 }
 
-function prikaziPoruku(imePolja, isValid, inputElement, errorMessage) {
+function prikaziPoruku(isValid, inputElement, errorMessage) {
     if (!inputElement) return;
     let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
-
     if (!porukaElement) return;
 
     if (isValid) {
@@ -149,6 +131,7 @@ function autoScroll() {
     }, 5000);
 }
 window.onload = autoScroll;
+
 
 
 
