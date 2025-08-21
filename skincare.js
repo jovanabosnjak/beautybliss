@@ -83,9 +83,19 @@ function proveriTelefon() {
 }
 
 function prikaziPoruku(isValid, inputElement, errorMessage) {
-    if (!inputElement) return;
-    let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
-    if (!porukaElement) return;
+    if (!inputElement) {
+        console.warn("prikaziPoruku pozvan bez inputElement-a");
+        return;
+    }
+
+    let porukaElement = inputElement.parentElement 
+        ? inputElement.parentElement.querySelector(".az-red") 
+        : null;
+
+    if (!porukaElement) {
+        console.warn("Nema .az-red elementa za", inputElement.id);
+        return;
+    }
 
     if (isValid) {
         porukaElement.classList.add("az-invisible");
@@ -96,6 +106,7 @@ function prikaziPoruku(isValid, inputElement, errorMessage) {
         porukaElement.innerText = errorMessage;
     }
 }
+
 
 function prikaziGlobalnuPoruku(isValid, message) {
     let porukaForme = document.getElementById("porukaForme");
@@ -131,6 +142,7 @@ function autoScroll() {
     }, 5000);
 }
 window.onload = autoScroll;
+
 
 
 
