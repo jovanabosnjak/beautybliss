@@ -1,176 +1,157 @@
 
 
-//start of skincare.html
-
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("dugmeProvera").addEventListener("click", proveriFormu);
-    document.getElementById("inputIme").addEventListener("input", proveriImePrezime);
-    document.getElementById("inputPrezime").addEventListener("input", proveriImePrezime);
-    document.getElementById("inputEmail").addEventListener("input", proveriEmail);
-    document.getElementById("inputTelefon").addEventListener("input", proveriTelefon);
-    
+    const dugme = document.getElementById("dugmeProvera");
+    if (dugme) dugme.addEventListener("click", proveriFormu);
+
+    const inputIme = document.getElementById("inputIme");
+    const inputPrezime = document.getElementById("inputPrezime");
+    const inputEmail = document.getElementById("inputEmail");
+    const inputTelefon = document.getElementById("inputTelefon");
+
+    if (inputIme) inputIme.addEventListener("input", proveriImePrezime);
+    if (inputPrezime) inputPrezime.addEventListener("input", proveriImePrezime);
+    if (inputEmail) inputEmail.addEventListener("input", proveriEmail);
+    if (inputTelefon) inputTelefon.addEventListener("input", proveriTelefon);
 });
 
-// provere forme
 function proveriFormu() {
     let isValid = true;
-    isValid = isValid && proveriImePrezime();
-    isValid = isValid && proveriEmail();
-    isValid = isValid && proveriTelefon();
-
-    function prikaziPoruku(imePolja, isValid, inputElement, errorMessage) {
-        let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
-        let porukaDiv = document.getElementById("porukaDiv");
-
-        if (isValid) {
-            porukaElement.classList.add("az-invisible", "success-message");
-        } else {
-            porukaElement.classList.remove("az-invisible", "success-message");
-            porukaElement.classList.add("error-message");
-            porukaElement.innerText = errorMessage;
-            porukaDiv.innerText = "Please fill out.";
-            porukaDiv.classList.add("error-message");
-        }
-    }
+    if (!proveriImePrezime()) isValid = false;
+    if (!proveriEmail()) isValid = false;
+    if (!proveriTelefon()) isValid = false;
 
     let ddlUsluga = document.getElementById("ddlUsluga");
     let ddlUslugaError = document.getElementById("ddlUslugaError");
 
-    if (!ddlUsluga || !ddlUslugaError) {
-        console.error("Element with id 'ddlUsluga' or 'ddlUslugaError' not found.");
-    } else {
+    if (ddlUsluga && ddlUslugaError) {
         if (ddlUsluga.value === "0") {
             isValid = false;
             ddlUslugaError.innerText = "Choose a product.";
-            ddlUslugaError.classList.remove("az-invisible");
-        } else {
-            ddlUslugaError.classList.add("az-invisible");
-        }
-    }
-
-    document.getElementById("ddlUsluga").addEventListener("change", function () {
-        let ddlUsluga = document.getElementById("ddlUsluga");
-        let ddlUslugaError = document.getElementById("ddlUslugaError");
-
-        if (ddlUsluga.value === "0") {
-            ddlUslugaError.innerText = "Please choose a product.";
             ddlUslugaError.classList.remove("az-invisible", "success-message");
             ddlUslugaError.classList.add("error-message");
         } else {
             ddlUslugaError.innerText = "Product chosen successfully.";
-            ddlUslugaError.classList.remove("az-invisible", "error-message");
+            ddlUslugaError.classList.remove("error-message", "az-invisible");
             ddlUslugaError.classList.add("success-message");
         }
-    });
-
-    let tipKontaktaSMS = document.getElementById("kontaktSMS").checked;
-    let tipKontaktaEmail = document.getElementById("kontaktMail").checked;
-
-    if (!tipKontaktaSMS && !tipKontaktaEmail) {
-        prikaziPoruku("Choose one", false, null, "Choose one contact method");
-        isValid = false;
-    } else {
-        prikaziPoruku("Choose one", true, null, "");
     }
 
+    let tipKontaktaSMS = document.getElementById("kontaktSMS")?.checked;
+    let tipKontaktaEmail = document.getElementById("kontaktMail")?.checked;
 
-    console.log("isValid nakon provere forme:", isValid);
+    if (!tipKontaktaSMS && !tipKontaktaEmail) {
+        prikaziGlobalnuPoruku(false, "Choose one contact method");
+        isValid = false;
+    }
 
     if (isValid) {
-        document.getElementById("kontaktForm").reset();
-        prikaziPoruku("Form is valid!", true, null, "");
+        prikaziGlobalnuPoruku(true, "Form submitted successfully!");
+        const forma = document.getElementById("kontaktForm");
+        if (forma) forma.reset();
     } else {
-        prikaziPoruku("Form is invalid!", false, null, "");
+        prikaziGlobalnuPoruku(false, "Form has errors, please check fields.");
     }
 }
 
 function proveriImePrezime() {
-    let inputIme = document.getElementById("inputIme");
-    let inputPrezime = document.getElementById("inputPrezime");
-    let regexImePrezime = /^[A-ZŠĐČĆŽ][a-zšđčćž]*(\s[A-ZŠĐČĆŽ][a-zšđčćž]*)*$/;
+    const inputIme = document.getElementById("inputIme");
+    const inputPrezime = document.getElementById("inputPrezime");
+    if (!inputIme || !inputPrezime) return false;
 
-    let isValidIme = regexImePrezime.test(inputIme.value);
-    let isValidPrezime = regexImePrezime.test(inputPrezime.value);
+    const regexImePrezime = /^[A-ZŠĐČĆŽ][a-zšđčćž]*(\s[A-ZŠĐČĆŽ][a-zšđčćž]*)*$/;
 
-    prikaziPoruku("Name", isValidIme, inputIme, "Invalid name format");
-    prikaziPoruku("Last Name", isValidPrezime, inputPrezime, "Invalid last name format");
+    const isValidIme = regexImePrezime.test(inputIme.value);
+    const isValidPrezime = regexImePrezime.test(inputPrezime.value);
+
+    prikaziPoruku(isValidIme, inputIme, "Invalid name format");
+    prikaziPoruku(isValidPrezime, inputPrezime, "Invalid last name format");
 
     return isValidIme && isValidPrezime;
 }
 
 function proveriEmail() {
-    let inputEmail = document.getElementById("inputEmail");
-    let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const inputEmail = document.getElementById("inputEmail");
+    if (!inputEmail) return false;
 
-    let isValidEmail = regexEmail.test(inputEmail.value);
+    const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValidEmail = regexEmail.test(inputEmail.value);
 
-    prikaziPoruku("Email", isValidEmail, inputEmail, "Invalid email format");
+    prikaziPoruku(isValidEmail, inputEmail, "Invalid email format");
 
     return isValidEmail;
 }
 
 function proveriTelefon() {
-    let inputTelefon = document.getElementById("inputTelefon");
-    let regexTelefon = /^06[0-9]\/?[0-9]{5,7}$/;
+    const inputTelefon = document.getElementById("inputTelefon");
+    if (!inputTelefon) return false;
 
-    let isValidTelefon = regexTelefon.test(inputTelefon.value);
+    const regexTelefon = /^06[0-9]\/?[0-9]{5,7}$/;
+    const isValidTelefon = regexTelefon.test(inputTelefon.value);
 
-    prikaziPoruku("Phone", isValidTelefon, inputTelefon, "Invalid phone format");
+    prikaziPoruku(isValidTelefon, inputTelefon, "Invalid phone format");
 
     return isValidTelefon;
 }
 
-function prikaziPoruku(imePolja, isValid, inputElement, errorMessage) {
-    if (!inputElement) {
-        console.log("inputElement nije definisan.");
-        return;
-    }
-    let porukaElement = inputElement.parentElement ? inputElement.parentElement.querySelector(".az-red") : null;
+function prikaziPoruku(isValid, inputElement, errorMessage) {
+    if (!inputElement) return;
 
-    if (!porukaElement) {
-        console.log("porukaElement nije definisan.");
-        return;
-    }
+    const porukaElement = inputElement.parentElement
+        ? inputElement.parentElement.querySelector(".az-red")
+        : null;
+
+    if (!porukaElement) return;
 
     if (isValid) {
         porukaElement.classList.add("az-invisible");
+        porukaElement.classList.remove("error-message");
     } else {
         porukaElement.classList.remove("az-invisible");
+        porukaElement.classList.add("error-message");
         porukaElement.innerText = errorMessage;
     }
-
-    let porukaDiv = document.getElementById("porukaDiv");
-
-    if (!inputElement) {
-        porukaDiv.innerText = isValid ? "" : "Choose one";
-        porukaDiv.style.color = isValid ? "" : "red";
-        porukaDiv.classList.toggle("error-message", !isValid);
-    }
-    
 }
 
+function prikaziGlobalnuPoruku(isValid, message) {
+    const porukaForme = document.getElementById("porukaForme");
+    if (!porukaForme) return;
 
-// skincare tips autoscroll
+    porukaForme.innerText = message;
+
+    if (isValid) {
+        porukaForme.classList.remove("az-invisible", "error-message");
+        porukaForme.classList.add("success-message");
+    } else {
+        porukaForme.classList.remove("az-invisible", "success-message");
+        porukaForme.classList.add("error-message");
+    }
+}
+
 function autoScroll() {
     const container = document.querySelector('.skincare-tips');
     const sections = document.querySelectorAll('.section');
+    if (!container || sections.length === 0) return;
 
     let index = 0;
     const interval = setInterval(() => {
-      const scrollAmount = sections[index].offsetHeight; 
+        const scrollAmount = sections[index].offsetHeight;
 
-      container.scrollBy({
-        top: scrollAmount,
-        behavior: 'smooth',
-      });
+        container.scrollBy({
+            top: scrollAmount,
+            behavior: 'smooth',
+        });
 
-      index++;
+        index++;
 
-      if (index === sections.length) {
-        clearInterval(interval);
-      }
-    }, 5000); 
-  }
-  window.onload = autoScroll;
-  //end of skincare.html
+        if (index === sections.length) {
+            clearInterval(interval);
+        }
+    }, 5000);
+}
+
+window.onload = autoScroll;
+
+
+
 
